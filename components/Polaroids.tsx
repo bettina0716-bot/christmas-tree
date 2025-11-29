@@ -178,12 +178,16 @@ const PolaroidItem: React.FC<{ data: PhotoData; mode: TreeMode; index: number }>
 
 export const Polaroids: React.FC<PolaroidsProps> = ({ mode, uploadedPhotos }) => {
   const photoData = useMemo(() => {
+    // Don't render any photos if none are uploaded
+    if (uploadedPhotos.length === 0) {
+      return [];
+    }
+
     const data: PhotoData[] = [];
     const height = 9; // Range of height on tree
     const maxRadius = 5.0; // Slightly outside the foliage radius (which is approx 5 at bottom)
     
-    // Use uploaded photos count if available, otherwise use PHOTO_COUNT
-    const count = uploadedPhotos.length > 0 ? uploadedPhotos.length : PHOTO_COUNT;
+    const count = uploadedPhotos.length;
 
     for (let i = 0; i < count; i++) {
       // 1. Target Position
@@ -220,14 +224,9 @@ export const Polaroids: React.FC<PolaroidsProps> = ({ mode, uploadedPhotos }) =>
         relativeZ - 4 + distance * Math.sin(angle) * 0.5 // Very close to camera (Z ~16-19)
       );
 
-      // Use uploaded photo URL if available, otherwise use default path
-      const url = uploadedPhotos.length > 0 
-        ? uploadedPhotos[i]
-        : `/photos/${i + 1}.jpg`;
-
       data.push({
         id: i,
-        url,
+        url: uploadedPhotos[i],
         chaosPos,
         targetPos,
         speed: 0.8 + Math.random() * 1.5 // Variable speed
