@@ -40,18 +40,19 @@ const vertexShader = `
     gl_PointSize = (4.0 * aRandom + 2.0) * (20.0 / -mvPosition.z);
     gl_Position = projectionMatrix * mvPosition;
 
-    // 颜色定义：冰蓝色调
-    vec3 iceDeep = vec3(0.1, 0.4, 0.8);  // 深蓝底色
-    vec3 iceWhite = vec3(0.9, 0.95, 1.0); // 冰晶高光
-    vec3 sparkleColor = vec3(1.0, 1.0, 1.0); // 闪烁纯白
+    // --- 纯净冰蓝颜色逻辑 ---
+    vec3 iceDeep = vec3(0.05, 0.3, 0.8);   // 深邃蓝
+    vec3 iceLight = vec3(0.6, 0.9, 1.0);  // 梦幻浅蓝
+    vec3 iceWhite = vec3(0.95, 0.98, 1.0); // 冰晶白
 
     float sparkle = sin(uTime * 5.0 + aRandom * 100.0);
     
-    // 核心混合逻辑
-    vColor = mix(iceDeep, iceWhite, easedProgress);
+    // 根据进度混合：从深蓝过渡到浅蓝
+    vColor = mix(iceDeep, iceLight, easedProgress);
 
-    if (sparkle > 0.9) {
-      vColor = mix(vColor, sparkleColor, 0.8);
+    // 随机增加闪烁的高光
+    if (sparkle > 0.85) {
+      vColor = mix(vColor, iceWhite, 0.7);
     }
 
     vAlpha = 1.0;
