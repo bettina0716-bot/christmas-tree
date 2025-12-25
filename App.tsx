@@ -2,6 +2,7 @@
 import React, { useState, Suspense, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Loader } from '@react-three/drei';
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 import { Experience } from './components/Experience';
 import { UIOverlay } from './components/UIOverlay';
 import { GestureController } from './components/GestureController';
@@ -129,6 +130,10 @@ export default function App() {
           <Suspense fallback={null}>
             <Experience mode={mode} handPosition={handPosition} uploadedPhotos={uploadedPhotos} twoHandsDetected={twoHandsDetected} onClosestPhotoChange={handleClosestPhotoChange} />
           </Suspense>
+          <EffectComposer disableNormalPass>
+  <Bloom intensity={2.0} luminanceThreshold={0.2} mipmapBlur />
+  <Vignette darkness={1.2} />
+</EffectComposer>
         </Canvas>
       </ErrorBoundary>
       
