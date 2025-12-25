@@ -56,17 +56,22 @@ vec3 sparkleBlue = vec3(0.6, 0.9, 1.0);    // 极亮的冰蓝色
     float sparkle = sin(uTime * 5.0 + aRandom * 100.0);
     vec3 finalGreen = mix(emeraldColor, brightGreen, aRandom * 0.3);
     
-    // 找到这行并修改
-vColor = mix(iceBlueDeep, iceWhite, easedProgress);
+  // --- 替换这一段 ---
+// 冰蓝色 (深色底)
+vec3 iceDeep = vec3(0.1, 0.4, 0.8); 
+// 冰晶白 (高光色)
+vec3 iceWhite = vec3(0.9, 0.95, 1.0);
+// 闪烁色 (更亮的纯白偏蓝)
+vec3 sparkleColor = vec3(1.0, 1.0, 1.0);
 
-// 修改闪烁逻辑 (让闪烁的光更亮，更像冰晶)
+// 核心混合逻辑：确保使用了新的变量名
+vColor = mix(iceDeep, iceWhite, easedProgress);
+
+// 增强闪烁感
 if (sparkle > 0.9) {
-  vColor += vec3(0.4, 0.6, 1.0); // 增加蓝白色闪光
+  vColor = mix(vColor, sparkleColor, 0.8);
 }
-
-    vAlpha = 1.0;
-  }
-`;
+// ----------------
 
 const fragmentShader = `
   varying vec3 vColor;
