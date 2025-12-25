@@ -97,7 +97,7 @@ export const Experience: React.FC<ExperienceProps> = ({ mode, handPosition, uplo
         color="#fff5cc" 
         castShadow 
       />
-      <pointLight position={[10, 10, 10]} intensity={2} color="#4B9CD3" /> 
+ <pointLight position={[10, 10, 10]} intensity={2} color="#4B9CD3" /> 
 <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={2} color="#ffffff" />
 
       <group position={[0, -5, 0]}>
