@@ -47,20 +47,22 @@ const vertexShader = `
     gl_Position = projectionMatrix * mvPosition;
 
     // Color logic: Mix between Chaos Gold and Formed Emerald
-    vec3 goldColor = vec3(1.0, 0.84, 0.0);
-    vec3 emeraldColor = vec3(0.0, 0.4, 0.1);
-    vec3 brightGreen = vec3(0.1, 0.8, 0.2);
+    // 替换原本的 goldColor, emeraldColor, brightGreen
+vec3 iceBlueDeep = vec3(0.29, 0.61, 0.83); // 对应 #4B9CD3
+vec3 iceWhite = vec3(0.88, 0.97, 0.98);    // 对应 #e0f7fa
+vec3 sparkleBlue = vec3(0.6, 0.9, 1.0);    // 极亮的冰蓝色
     
     // Sparkle effect
     float sparkle = sin(uTime * 5.0 + aRandom * 100.0);
     vec3 finalGreen = mix(emeraldColor, brightGreen, aRandom * 0.3);
     
-    vColor = mix(goldColor, finalGreen, easedProgress);
-    
-    // Add sparkle to the tips
-    if (sparkle > 0.9) {
-      vColor += vec3(0.5);
-    }
+    // 找到这行并修改
+vColor = mix(iceBlueDeep, iceWhite, easedProgress);
+
+// 修改闪烁逻辑 (让闪烁的光更亮，更像冰晶)
+if (sparkle > 0.9) {
+  vColor += vec3(0.4, 0.6, 1.0); // 增加蓝白色闪光
+}
 
     vAlpha = 1.0;
   }
