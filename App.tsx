@@ -121,11 +121,11 @@ export default function App() {
   <div className="w-full h-screen relative" style={{ background: '#020617' }}>
       <ErrorBoundary>
         <Canvas
-          dpr={[1, 2]}
-          camera={{ position: [0, 4, 20], fov: 45 }}
-          gl={{ antialias: false, stencil: false, alpha: false }}
-          shadows
-        >
+  dpr={[1, 2]}
+  camera={{ position: [0, 4, 20], fov: 45 }}
+  gl={{ antialias: false, stencil: false, alpha: true }} // 必须改为 true
+  shadows
+>
           <Suspense fallback={null}>
             <Experience mode={mode} handPosition={handPosition} uploadedPhotos={uploadedPhotos} twoHandsDetected={twoHandsDetected} onClosestPhotoChange={handleClosestPhotoChange} />
           </Suspense>
