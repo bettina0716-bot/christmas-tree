@@ -117,8 +117,8 @@ export default function App() {
     setUploadedPhotos(photos);
   };
 
-  return (
-    <div className="w-full h-screen relative bg-gradient-to-b from-black via-[#001a0d] to-[#0a2f1e]">
+ return (
+  <div className="w-full h-screen relative" style={{ background: '#020617' }}>
       <ErrorBoundary>
         <Canvas
           dpr={[1, 2]}
